@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="audio">
+      <UniqueIdentifier>{B7281C0F-233D-44C0-ECBE-E71F589240F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entities">
+      <UniqueIdentifier>{AA3F76DB-960C-D1E6-BF25-BF8EAB510675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{B54AA90F-215F-D1C0-EAE0-742056B4CDF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="map">
+      <UniqueIdentifier>{838F880B-EF98-887C-7814-9F7CE41C947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="maths">
+      <UniqueIdentifier>{229BEA0F-8EAF-12C1-5731-B620C3040FF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{EFBE9050-5B9E-0FEC-64B6-9AC2D014764D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="states">
+      <UniqueIdentifier>{398B8A1C-252D-B5F2-0EE8-C846FA283C43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="states\scenes">
+      <UniqueIdentifier>{69B6F3EB-D576-6F22-9EB1-B89F0A31B4FE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{C3795900-AF05-880B-18B4-880B045F880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{169C8510-82B0-ADC1-4B32-5121B705AAF2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\audio\Music.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\SoundEffect.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\SoundManager.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Entity.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\KeyManager.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\Keys.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\MouseManager.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map\MapConstants.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map\Tilemap.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\MathHelper.h">
+      <Filter>maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vec2.h">
+      <Filter>maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\GameObject.h">
+      <Filter>objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\StateManager.h">
+      <Filter>states</Filter>
+    </ClInclude>
+    <ClInclude Include="src\states\scenes\Scene.h">
+      <Filter>states\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Button.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\InputBox.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Text.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\UIManager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\CollisionHandler.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Texture.h" />
+    <ClInclude Include="src\utils\AssetLoader.h" />
+    <ClInclude Include="src\layers\Layer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\audio\Music.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\SoundEffect.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\SoundManager.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Entity.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\KeyManager.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\MouseManager.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map\Tilemap.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\MathHelper.cpp">
+      <Filter>maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vec2.cpp">
+      <Filter>maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\GameObject.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\StateManager.cpp">
+      <Filter>states</Filter>
+    </ClCompile>
+    <ClCompile Include="src\states\scenes\Scene.cpp">
+      <Filter>states\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Button.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\InputBox.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\Text.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\UIManager.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\CollisionHandler.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Texture.cpp" />
+    <ClCompile Include="src\utils\AssetLoader.cpp" />
+    <ClCompile Include="src\layers\Layer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\8-bit-pusab.ttf" />
+  </ItemGroup>
+</Project>

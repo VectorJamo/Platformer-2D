@@ -18,7 +18,7 @@ void GameState::Init()
 	m_Map->AssociateTileCharToSprite(7, m_WorldSheet, 7, 0);
 	m_Map->AssociateTileCharToSprite(29, m_WorldSheet, 7, 1);
 
-	m_EntityLayer = new EntityLayer("entityLayer");
+	m_EntityLayer = new EntityLayer("entityLayer", m_Window->GetRenderer());
 }
 
 void GameState::Update()
@@ -44,6 +44,7 @@ void GameState::Update()
 void GameState::Render()
 {
 	m_Map->RenderFromSprite(m_Window->GetRenderer());
+	m_EntityLayer->Render();
 }
 
 void GameState::LoadAssets()

@@ -24,6 +24,11 @@ void Texture::Render(SDL_Renderer* renderer, SDL_Rect* srcRect, SDL_Rect* destRe
     SDL_RenderCopy(renderer, m_Texture, srcRect, destRect);
 }
 
+void Texture::RenderFlippedHorizontally(SDL_Renderer* renderer, SDL_Rect* srcRect, SDL_Rect* destRect)
+{
+    SDL_RenderCopyEx(renderer, m_Texture, srcRect, destRect, 0.0, NULL, SDL_FLIP_HORIZONTAL);
+}
+
 SpriteSheet::SpriteSheet(const char* path, SDL_Renderer* renderer, const vec2& spriteSize)
     :m_SpriteSize(spriteSize)
 {

@@ -7,7 +7,7 @@ private:
 	Player* m_Player;
 
 public:
-	EntityLayer(const std::string& layerName);
+	EntityLayer(const std::string& layerName, SDL_Renderer* renderer);
 	~EntityLayer();
 	
 	void Update() override;

@@ -15,6 +15,7 @@ public:
 	~Texture();
 
 	void Render(SDL_Renderer* renderer, SDL_Rect* srcRect, SDL_Rect* destRect);
+	void RenderFlippedHorizontally(SDL_Renderer* renderer, SDL_Rect* srcRect, SDL_Rect* destRect);
 
 	inline SDL_Texture* GetTextureBuffer() { return m_Texture; }
 };

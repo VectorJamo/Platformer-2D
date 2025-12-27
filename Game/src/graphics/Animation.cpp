@@ -1,16 +1,26 @@
 #include "Animation.h"
 #include "Application.h"
 
-Animation::Animation(SDL_Rect* animationRects, int maxFrames)
+Animation::Animation()
 {
-	this->animationRects = animationRects;
-	this->maxFrames = maxFrames;
+}
 
-	currentRect = animationRects;
+Animation::Animation(Texture* texture, SDL_Rect* animationRects, int maxFrames)
+{
+	this->animationRects.texture = texture;
+	this->animationRects.clipRects = animationRects;
+	this->maxFrames = maxFrames;
 }
 
 Animation::~Animation()
 {
+}
+
+void Animation::SetAnimation(Texture* texture, SDL_Rect* animationRects, int maxFrames)
+{
+	this->animationRects.texture = texture;
+	this->animationRects.clipRects = animationRects;
+	this->maxFrames = maxFrames;
 }
 
 void Animation::PlayAnimation()
@@ -25,5 +35,5 @@ void Animation::PlayAnimation()
 			currentFrame = 0;
 		}
 	}
-	currentRect = &animationRects[currentFrame];
+	currentRect = animationRects.clipRects[currentFrame];
 }

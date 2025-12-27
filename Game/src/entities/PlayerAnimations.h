@@ -2,6 +2,6 @@
 
 enum class PlayerAnimations
 {
-	IDLE = 0, MOVE_LEFT, MOVE_RIGHT, JUMP, FALL, 
+	IDLE_RIGHT = 0, RUN_RIGHT, 
 	TOTAL_ANIMATIONS
 };

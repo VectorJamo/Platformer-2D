@@ -67,8 +67,8 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		bottomRightRow = (entity->GetPosition().y + entity->GetDimension().height) / MapConstants::TileHeight;
 		bottomRightCol = (entity->GetPosition().x + entityVel.x + entity->GetDimension().width) / MapConstants::TileWidth;
 
-		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != '0');
-		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != '0');
+		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != 0);
+		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != 0);
 
 		direction.xCollision = (topRightCollision || bottomRightCollision);
 	}
@@ -80,8 +80,8 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		bottomLeftRow = (entity->GetPosition().y + entity->GetDimension().height) / MapConstants::TileHeight;
 		bottomLeftCol = (entity->GetPosition().x + entityVel.x) / MapConstants::TileWidth;
 
-		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != '0');
-		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != '0');
+		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != 0);
+		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != 0);
 
 		direction.xCollision = (topLeftCollision || bottomLeftCollision);
 	}
@@ -97,8 +97,8 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		topRightRow = (entity->GetPosition().y + entityVel.y) / MapConstants::TileHeight;
 		topRightCol = (entity->GetPosition().x + entity->GetDimension().width) / MapConstants::TileWidth;
 
-		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != '0');
-		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != '0');
+		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != 0);
+		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != 0);
 
 		direction.yCollision = (topLeftCollision || topRightCollision);
 	}
@@ -111,8 +111,8 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		bottomRightRow = (entity->GetPosition().y + entityVel.y + entity->GetDimension().height) / MapConstants::TileHeight;
 		bottomRightCol = (entity->GetPosition().x + entity->GetDimension().width) / MapConstants::TileWidth;
 
-		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != '0');
-		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != '0');
+		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != 0);
+		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != 0);
 
 		direction.yCollision = (bottomLeftCollision || bottomRightCollision);
 	}

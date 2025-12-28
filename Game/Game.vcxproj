@@ -146,12 +146,14 @@
     <ClInclude Include="src\entities\PlayerAnimations.h" />
     <ClInclude Include="src\entities\PlayerDirections.h" />
     <ClInclude Include="src\graphics\Animation.h" />
+    <ClInclude Include="src\layers\MapLayer.h" />
     <ClInclude Include="src\states\GameState.h" />
     <ClInclude Include="src\layers\EntityLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\entities\Player.cpp" />
     <ClCompile Include="src\graphics\Animation.cpp" />
+    <ClCompile Include="src\layers\MapLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\layers\EntityLayer.cpp" />

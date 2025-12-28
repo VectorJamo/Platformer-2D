@@ -3,12 +3,14 @@
 #include "src/entities/PlayerAnimations.h"
 #include "src/input/KeyManager.h"
 #include "src/map/MapConstants.h"
+#include "src/utils/CollisionHandler.h"
 
 #include "Application.h"
 
-Player::Player(int playerID, const char* playerSpritePath, SDL_Renderer* renderer)
+Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer)
 	:Entity(playerID, playerSpritePath)
 {
+	m_Map = map;
 	m_Renderer = renderer;
 
 	LoadAssets();
@@ -21,6 +23,8 @@ Player::Player(int playerID, const char* playerSpritePath, SDL_Renderer* rendere
 	m_Position.x = 10 * MapConstants::TileWidth;
 	m_Position.y = 6 * MapConstants::TileHeight;
 	m_Dimension = vec2(MapConstants::TileWidth, MapConstants::TileHeight);
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
 }
 
 Player::~Player()
@@ -49,8 +53,22 @@ void Player::SetupAnimations()
 	m_Animations[(int)PlayerAnimations::RUN_RIGHT].SetAnimation(m_RunTexture, m_RunAnimationRects, 12);
 }
 
+void Player::CheckCollisions()
+{
+	CollisionDirection collisionDirection = CollisionHandler::CheckEntityWorldCollision(this, m_Map, m_Velocity);
+	if (collisionDirection.xCollision)
+	{
+		m_Velocity.x = 0.0f;
+	}
+	else if (collisionDirection.yCollision) {
+		m_Velocity.y = 0.0f;
+	}
+}
+
 void Player::Update()
 {
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = gravityYVel * Application::GetDeltaTime();
 	m_ShouldMove = false;
 	m_CurrentAnimation = &m_Animations[(int)PlayerAnimations::IDLE_RIGHT];
 
@@ -76,13 +94,19 @@ void Player::Update()
 		switch (m_CurrentDirection)
 		{
 		case PlayerDirections::LEFT:
-			m_Position.x -= m_PlayerSpeed * Application::GetDeltaTime();
+			m_Velocity.x = -m_PlayerSpeed * Application::GetDeltaTime();
 			break;
 		case PlayerDirections::RIGHT:
-			m_Position.x += m_PlayerSpeed * Application::GetDeltaTime();
+			m_Velocity.x = m_PlayerSpeed * Application::GetDeltaTime();
 			break;
 		}
 	}
+
+	// TODO: Check Collisions
+	CheckCollisions();
+
+	m_Position.x += m_Velocity.x;
+	m_Position.y += m_Velocity.y;
 
 	m_CurrentAnimation->PlayAnimation();
 }

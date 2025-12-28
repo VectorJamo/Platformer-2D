@@ -18,7 +18,7 @@ private:
 	int currentFrame = 0;
 	SDL_Rect currentRect;
 	
-	float animationFrameTime = 0.1f; // Change frames every 0.1 second
+	float animationFrameTime = 0.05f; // Change frames every 0.1 second
 	float currentTime = 0.0f;
 
 public:

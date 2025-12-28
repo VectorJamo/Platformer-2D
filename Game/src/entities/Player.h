@@ -3,11 +3,19 @@
 #include "src/entities/Entity.h"
 #include "../graphics/Animation.h"
 #include "PlayerDirections.h"
+#include "src/map/Tilemap.h"
 
 class Player : public Entity
 {
 private:
+	Tilemap* m_Map;
+
 	SDL_Renderer* m_Renderer;
+
+	// Movement
+	vec2 m_Velocity;
+
+	static constexpr float gravityYVel = 100;
 
 	// Textures
 	Texture* m_IdleTexture, * m_RunTexture, * m_JumpTexture, * m_FallTexture;
@@ -27,11 +35,12 @@ private:
 	static constexpr float m_PlayerSpeed = 100.0f;
 
 public:
-	Player(int playerID, const char* playerSpritePath, SDL_Renderer* renderer);
+	Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer);
 	~Player();
 
 	void LoadAssets();
 	void SetupAnimations();
+	void CheckCollisions();
 
 	void Update() override;
 	void Render(SDL_Renderer* renderer) override;

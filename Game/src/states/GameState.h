@@ -12,13 +12,13 @@
 #include <src/map/Tilemap.h>
 
 #include <src/layers/EntityLayer.h>
+#include "src/layers/MapLayer.h"
 
 class GameState : public StateManager
 {
 private:
 	// Map
-	SpriteSheet* m_WorldSheet;
-	Tilemap* m_Map;
+	MapLayer* m_MapLayer;
 
 	// Entities
 	EntityLayer* m_EntityLayer;

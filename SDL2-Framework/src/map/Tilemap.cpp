@@ -3,9 +3,13 @@
 #include <fstream>
 #include <sstream>
 
-Tilemap::Tilemap(const char* filePath)
+Tilemap::Tilemap(const char* filePath, int numTileRows, int numTileCols, SpriteSheet* worldSheet)
 {
 	m_Map = new unsigned char* [MapConstants::NumRows];
+	m_MapRows = numTileRows;
+	m_MapCols = numTileCols;
+	m_WorldSheet = worldSheet;
+
 	for (int i = 0; i < MapConstants::NumRows; i++)
 		m_Map[i] = new unsigned char[MapConstants::NumCols];
 
@@ -45,7 +49,6 @@ void Tilemap::Render(SDL_Renderer* renderer)
 void Tilemap::AssociateTileCharToSprite(unsigned char c, SpriteSheet* spriteSheet, int col, int row)
 {
 	m_TileToSprite[c] = new Sprite(spriteSheet, col, row);
-
 }
 
 void Tilemap::RenderFromSprite(SDL_Renderer* renderer)
@@ -82,6 +85,13 @@ void Tilemap::LoadTilemap(const char* path)
 		{
 			unsigned char tileID = std::stoi(tileChar);
 			m_Map[row][col] = tileID;
+
+			if (!m_TileToSprite.count(tileID) && tileID != 0)
+			{
+				int row = (int)tileID / m_MapCols;
+				int col = (int)tileID % m_MapCols;
+				m_TileToSprite[tileID] = new Sprite(m_WorldSheet, col, row);
+			}
 
 			col++;
 		}

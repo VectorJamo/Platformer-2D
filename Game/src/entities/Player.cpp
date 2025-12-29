@@ -71,6 +71,9 @@ void Player::CheckCollisions()
 			m_IsFalling = false;
 			m_Jump = false;
 		}
+		else if (!m_IsFalling) {
+			m_IsFalling = true;
+		}
 	}
 }
 

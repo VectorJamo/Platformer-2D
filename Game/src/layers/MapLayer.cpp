@@ -7,10 +7,7 @@ MapLayer::MapLayer(const std::string& layerName, SDL_Renderer* renderer)
 
 	m_WorldSheet = new SpriteSheet("res/images/Terrain/Terrain.png", m_Renderer, vec2(16.0f, 16.0f));
 
-	m_Map = new Tilemap("res/maps/map.txt");
-
-	m_Map->AssociateTileCharToSprite(7, m_WorldSheet, 7, 0);
-	m_Map->AssociateTileCharToSprite(29, m_WorldSheet, 7, 1);
+	m_Map = new Tilemap("res/maps/map.txt", 11, 22, m_WorldSheet);
 }
 
 MapLayer::~MapLayer()

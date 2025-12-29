@@ -63,6 +63,6 @@ void Application::Run()
 
 		m_Window->Display();
 
-		LogFPS();
+		//LogFPS();
 	}
 }

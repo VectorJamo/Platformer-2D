@@ -10,13 +10,15 @@ class Tilemap
 {
 private:
 	unsigned char** m_Map;
+	int m_MapRows, m_MapCols;
+	SpriteSheet* m_WorldSheet;
 	
 	// Use only one of these two for an instance of this Tilemap class
 	std::unordered_map<unsigned char, Texture*> m_TileToTexture; // Tile to Texture Map -> For tiles with single texture
 	std::unordered_map<unsigned char, Sprite*> m_TileToSprite; // Tile to Sprite in a sprite sheet
 
 public:
-	Tilemap(const char* filePath);
+	Tilemap(const char* filePath, int numTileRows, int numTileCols, SpriteSheet* worldSheet);
 	~Tilemap();
 
 	// For tiles which have an individual texture for each

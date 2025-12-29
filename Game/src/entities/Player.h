@@ -12,11 +12,6 @@ private:
 
 	SDL_Renderer* m_Renderer;
 
-	// Movement
-	vec2 m_Velocity;
-
-	static constexpr float gravityYVel = 100;
-
 	// Textures
 	Texture* m_IdleTexture, * m_RunTexture, * m_JumpTexture, * m_FallTexture;
 
@@ -27,12 +22,26 @@ private:
 	Animation* m_Animations; 
 	Animation* m_CurrentAnimation;
 
-	// Player directions
+	// Player movement
+	vec2 m_Velocity;
+
 	PlayerDirections m_CurrentDirection;
 	bool m_ShouldMove;
 	bool m_ShouldFlipTexture;
 
 	static constexpr float m_PlayerSpeed = 100.0f;
+	static constexpr float m_GravityYVel = 100.0f;
+
+	// Player Jump
+	static constexpr float m_JumpYVel = -8.0f;
+	static constexpr float m_DragY = 0.2f;
+	bool m_Jump, m_IsFalling;
+	float m_CurrentJumpVelocity = m_JumpYVel;
+
+	// Fixed Update
+	static constexpr int m_TargetFPS = 60.0f;
+	static constexpr float m_TargetFrameTime = 1.0f/(float)m_TargetFPS;
+	float m_CumulativeTime = 0.0f;
 
 public:
 	Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer);
@@ -41,7 +50,9 @@ public:
 	void LoadAssets();
 	void SetupAnimations();
 	void CheckCollisions();
+	void CaluclateJumpPhysics();
 
+	void FixedUpdate();
 	void Update() override;
 	void Render(SDL_Renderer* renderer) override;
 	void Render(SDL_Renderer* renderer, float camX, float camY) override;

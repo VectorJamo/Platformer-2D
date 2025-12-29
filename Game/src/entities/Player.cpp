@@ -25,6 +25,9 @@ Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Ren
 	m_Dimension = vec2(MapConstants::TileWidth, MapConstants::TileHeight);
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+	
+	m_Jump = false;
+	m_IsFalling = false;
 }
 
 Player::~Player()
@@ -62,13 +65,19 @@ void Player::CheckCollisions()
 	}
 	else if (collisionDirection.yCollision) {
 		m_Velocity.y = 0.0f;
+
+		if (m_IsFalling)
+		{
+			m_IsFalling = false;
+			m_Jump = false;
+		}
 	}
 }
 
 void Player::Update()
 {
 	m_Velocity.x = 0.0f;
-	m_Velocity.y = gravityYVel * Application::GetDeltaTime();
+	m_Velocity.y = m_GravityYVel * Application::GetDeltaTime();
 	m_ShouldMove = false;
 	m_CurrentAnimation = &m_Animations[(int)PlayerAnimations::IDLE_RIGHT];
 
@@ -87,6 +96,15 @@ void Player::Update()
 		m_ShouldFlipTexture = false;
 
 		m_CurrentAnimation = &m_Animations[(int)PlayerAnimations::RUN_RIGHT];
+	}
+	if (KeyManager::IsKeyPressed(SDLK_SPACE) && !m_Jump)
+	{
+		m_Jump = true;
+	}
+
+	if (m_Jump && !m_IsFalling)
+	{
+		FixedUpdate();
 	}
 
 	if (m_ShouldMove)
@@ -111,16 +129,72 @@ void Player::Update()
 	m_CurrentAnimation->PlayAnimation();
 }
 
+void Player::FixedUpdate()
+{
+	m_CumulativeTime += Application::GetDeltaTime();
+	if (m_CumulativeTime >= m_TargetFrameTime)
+	{
+		m_CumulativeTime = 0.0f;
+
+		if (m_Jump)
+		{
+			CaluclateJumpPhysics();
+		}
+	}
+}
+
+void Player::CaluclateJumpPhysics()
+{
+	if (m_CurrentJumpVelocity <= 0.0f && !m_IsFalling)
+	{
+		m_CurrentJumpVelocity += m_DragY;
+	
+		m_Velocity.y += m_CurrentJumpVelocity;
+	}
+	else {
+		m_IsFalling = true;
+		m_CurrentJumpVelocity = m_JumpYVel; // Reset to initial velocity for the next jump
+	}
+}
+
 void Player::Render(SDL_Renderer* renderer)
 {
 	SDL_Rect destRect = { m_Position.x, m_Position.y, m_Dimension.width, m_Dimension.height };
-	SDL_Rect srcRect = m_CurrentAnimation->GetCurrentRect();
 
-	if (m_ShouldFlipTexture) { 
-		m_CurrentAnimation->GetAnimationTexture()->RenderFlippedHorizontally(m_Renderer, &srcRect, &destRect);
+	if (!m_Jump)
+	{
+		SDL_Rect srcRect = m_CurrentAnimation->GetCurrentRect();
+
+		if (m_ShouldFlipTexture) { 
+			m_CurrentAnimation->GetAnimationTexture()->RenderFlippedHorizontally(m_Renderer, &srcRect, &destRect);
+		}
+		else {
+			m_CurrentAnimation->GetAnimationTexture()->Render(m_Renderer, &srcRect, &destRect);
+		}
 	}
 	else {
-		m_CurrentAnimation->GetAnimationTexture()->Render(m_Renderer, &srcRect, &destRect);
+		// Descend jump state
+		if (m_IsFalling)
+		{
+			if (m_ShouldFlipTexture)
+			{
+				m_FallTexture->RenderFlippedHorizontally(m_Renderer, NULL, &destRect);
+			}
+			else {
+				m_FallTexture->Render(m_Renderer, NULL, &destRect);
+			}
+		}
+		else {
+		// Ascend jump state
+			if (m_ShouldFlipTexture)
+			{
+				m_JumpTexture->RenderFlippedHorizontally(m_Renderer, NULL, &destRect);
+			}
+			else {
+				m_JumpTexture->Render(m_Renderer, NULL, &destRect);
+			}
+		}
+
 	}
 }
 

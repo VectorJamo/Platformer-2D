@@ -20,4 +20,3 @@ public:
 	static CollisionDirection CheckEntityWorldCollision(Entity* entity, Tilemap* map, const vec2& entityVel);
 	static CollisionDirection CheckObjectWorldCollision(GameObject* object, Tilemap* map, const vec2& objectVel);
 };
-

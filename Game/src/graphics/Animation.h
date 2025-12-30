@@ -27,6 +27,7 @@ public:
 	~Animation();
 
 	void SetAnimation(Texture* texture, SDL_Rect* animationRects, int maxFrames);
+	void SetAnimationFrameTime(float animationFrameTime);
 
 	void PlayAnimation();
 	inline const SDL_Rect& GetCurrentRect() const { return currentRect; }

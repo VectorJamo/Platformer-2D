@@ -15,6 +15,8 @@ protected:
 	vec2 m_Position, m_Dimension;
 	Texture* m_EntityTexture;
 
+	SDL_Rect m_CollisionRect;
+
 public:
 	Entity(int entityID, const char* texturePath);
 	Entity(const vec2& position, const vec2& dimension, int entityID, const char* texturePath); 
@@ -30,4 +32,6 @@ public:
 	inline const vec2& GetPosition() const { return m_Position; }
 	inline const vec2& GetDimension() const { return m_Dimension; }
 	inline const int GetEntityID() const { return m_EntityID; }
+
+	inline SDL_Rect GetCollisionRect() { return m_CollisionRect; }
 };

@@ -63,10 +63,10 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		// Right direction
 		int topRightRow, topRightCol, bottomRightRow, bottomRightCol;
 
-		topRightRow = entity->GetPosition().y / MapConstants::TileHeight;
-		topRightCol = (entity->GetPosition().x + entityVel.x + entity->GetDimension().width) / MapConstants::TileWidth;
-		bottomRightRow = (entity->GetPosition().y + entity->GetDimension().height) / MapConstants::TileHeight;
-		bottomRightCol = (entity->GetPosition().x + entityVel.x + entity->GetDimension().width) / MapConstants::TileWidth;
+		topRightRow = (entity->GetPosition().y + entity->GetCollisionRect().y) / MapConstants::TileHeight;
+		topRightCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entity->GetCollisionRect().w + entityVel.x ) / MapConstants::TileWidth;
+		bottomRightRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entity->GetCollisionRect().h) / MapConstants::TileHeight;
+		bottomRightCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entity->GetCollisionRect().w + entityVel.x) / MapConstants::TileWidth;
 
 		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != 0);
 		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != 0);
@@ -76,10 +76,10 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 	else {
 		// Left direction
 		int topLeftRow, topLeftCol, bottomLeftRow, bottomLeftCol;
-		topLeftRow = entity->GetPosition().y / MapConstants::TileHeight;
-		topLeftCol = (entity->GetPosition().x + entityVel.x) / MapConstants::TileWidth;
-		bottomLeftRow = (entity->GetPosition().y + entity->GetDimension().height) / MapConstants::TileHeight;
-		bottomLeftCol = (entity->GetPosition().x + entityVel.x) / MapConstants::TileWidth;
+		topLeftRow = (entity->GetPosition().y + entity->GetCollisionRect().y) / MapConstants::TileHeight;
+		topLeftCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entityVel.x) / MapConstants::TileWidth;
+		bottomLeftRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entity->GetCollisionRect().h) / MapConstants::TileHeight;
+		bottomLeftCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entityVel.x) / MapConstants::TileWidth;
 
 		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != 0);
 		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != 0);
@@ -93,10 +93,10 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		// Up direction
 		int topLeftRow, topLeftCol, topRightRow, topRightCol;
 
-		topLeftRow = (entity->GetPosition().y + entityVel.y) / MapConstants::TileHeight;
-		topLeftCol = entity->GetPosition().x / MapConstants::TileWidth;
-		topRightRow = (entity->GetPosition().y + entityVel.y) / MapConstants::TileHeight;
-		topRightCol = (entity->GetPosition().x + entity->GetDimension().width) / MapConstants::TileWidth;
+		topLeftRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entityVel.y) / MapConstants::TileHeight;
+		topLeftCol = (entity->GetPosition().x + entity->GetCollisionRect().x) / MapConstants::TileWidth;
+		topRightRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entityVel.y) / MapConstants::TileHeight;
+		topRightCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entity->GetCollisionRect().w) / MapConstants::TileWidth;
 
 		bool topLeftCollision = (map->GetMap()[topLeftRow][topLeftCol] != 0);
 		bool topRightCollision = (map->GetMap()[topRightRow][topRightCol] != 0);
@@ -107,10 +107,10 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 		// Down direction
 		int bottomLeftRow, bottomLeftCol, bottomRightRow, bottomRightCol;
 
-		bottomLeftRow = (entity->GetPosition().y + entityVel.y + entity->GetDimension().height) / MapConstants::TileHeight;
-		bottomLeftCol = entity->GetPosition().x / MapConstants::TileWidth;
-		bottomRightRow = (entity->GetPosition().y + entityVel.y + entity->GetDimension().height) / MapConstants::TileHeight;
-		bottomRightCol = (entity->GetPosition().x + entity->GetDimension().width) / MapConstants::TileWidth;
+		bottomLeftRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entity->GetCollisionRect().h + entityVel.y) / MapConstants::TileHeight;
+		bottomLeftCol = (entity->GetPosition().x + entity->GetCollisionRect().x) / MapConstants::TileWidth;
+		bottomRightRow = (entity->GetPosition().y + entity->GetCollisionRect().y + entity->GetCollisionRect().h + entityVel.y) / MapConstants::TileHeight;
+		bottomRightCol = (entity->GetPosition().x + entity->GetCollisionRect().x + entity->GetCollisionRect().w) / MapConstants::TileWidth;
 
 		bool bottomLeftCollision = (map->GetMap()[bottomLeftRow][bottomLeftCol] != 0);
 		bool bottomRightCollision = (map->GetMap()[bottomRightRow][bottomRightCol] != 0);

@@ -10,6 +10,8 @@ Entity::Entity(const vec2& position, const vec2& dimension, int entityID, const 
 	:m_Position(position), m_Dimension(dimension), m_EntityID(entityID)
 {
 	m_EntityTexture = AssetLoader::LoadTexture(texturePath);
+
+	m_CollisionRect = { 0, 0, (int)dimension.width, (int)dimension.height };
 }
 
 Entity::~Entity()

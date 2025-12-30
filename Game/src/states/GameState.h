@@ -13,6 +13,7 @@
 
 #include <src/layers/EntityLayer.h>
 #include "src/layers/MapLayer.h"
+#include "src/layers/ObjectLayer.h"
 
 class GameState : public StateManager
 {
@@ -22,6 +23,9 @@ private:
 
 	// Entities
 	EntityLayer* m_EntityLayer;
+
+	// Objects
+	ObjectLayer* m_ObjectLayer;
 
 public:
 	GameState(Window* window, bool* isAppRunning);

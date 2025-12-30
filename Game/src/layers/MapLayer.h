@@ -7,6 +7,7 @@
 class MapLayer : public Layer
 {
 private:
+	// Tilemap
 	SpriteSheet* m_WorldSheet;
 	Tilemap* m_Map;
 

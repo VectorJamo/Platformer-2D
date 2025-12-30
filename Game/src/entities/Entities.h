@@ -1,5 +1,5 @@
 #pragma once
 enum class ENTITIES
 {
-	Player = 0
+	Player = 0,
 };

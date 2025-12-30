@@ -12,6 +12,7 @@ Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Ren
 {
 	m_Map = map;
 	m_Renderer = renderer;
+	m_CollisionRect = { 4, 4, 24, 24 };
 
 	LoadAssets();
 	SetupAnimations();
@@ -32,6 +33,12 @@ Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Ren
 
 Player::~Player()
 {
+	delete m_IdleTexture;
+	delete m_RunTexture;
+	delete m_JumpTexture;
+	delete m_FallTexture;
+
+	delete[] m_Animations;
 }
 
 void Player::LoadAssets()
@@ -205,6 +212,11 @@ void Player::Render(SDL_Renderer* renderer)
 		}
 
 	}
+
+	// Collision rect
+	//SDL_Rect collisionRectRenderable = { m_Position.x + m_CollisionRect.x, m_Position.y + m_CollisionRect.y, m_CollisionRect.w, m_CollisionRect.h };
+	//SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 200);
+	//SDL_RenderDrawRect(m_Renderer, &collisionRectRenderable);
 }
 
 void Player::Render(SDL_Renderer* renderer, float camX, float camY)

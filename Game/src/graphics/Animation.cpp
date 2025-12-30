@@ -23,6 +23,11 @@ void Animation::SetAnimation(Texture* texture, SDL_Rect* animationRects, int max
 	this->maxFrames = maxFrames;
 }
 
+void Animation::SetAnimationFrameTime(float animationFrameTime)
+{
+	this->animationFrameTime = animationFrameTime;
+}
+
 void Animation::PlayAnimation()
 {
 	currentTime += Application::GetDeltaTime();

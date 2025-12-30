@@ -7,6 +7,7 @@
 #include "map/Tilemap.h"
 
 #include <cmath>
+#include <iostream>
 
 bool CollisionHandler::CheckCollision(Entity* e1, Entity* e2, const vec2& e1Vel, const vec2& e2Vel)
 {
@@ -116,7 +117,6 @@ CollisionDirection CollisionHandler::CheckEntityWorldCollision(Entity* entity, T
 
 		direction.yCollision = (bottomLeftCollision || bottomRightCollision);
 	}
-
 
 	return direction;
 }

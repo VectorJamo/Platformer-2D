@@ -59,11 +59,13 @@ void Player::SetupAnimations()
 void Player::CheckCollisions()
 {
 	CollisionDirection collisionDirection = CollisionHandler::CheckEntityWorldCollision(this, m_Map, m_Velocity);
+	bool first = false;
+	bool second = false;
 	if (collisionDirection.xCollision)
 	{
 		m_Velocity.x = 0.0f;
 	}
-	else if (collisionDirection.yCollision) {
+	if (collisionDirection.yCollision) {
 		m_Velocity.y = 0.0f;
 
 		if (m_IsFalling)
@@ -71,8 +73,11 @@ void Player::CheckCollisions()
 			m_IsFalling = false;
 			m_Jump = false;
 		}
-		else if (!m_IsFalling) {
+		else if (m_Jump && !m_IsFalling) {
+			// Abort the ascend
 			m_IsFalling = true;
+
+			m_CurrentJumpVelocity = m_JumpYVel; // Reset to initial velocity for the next jump			
 		}
 	}
 }
@@ -123,7 +128,7 @@ void Player::Update()
 		}
 	}
 
-	// TODO: Check Collisions
+	// Check Collisions
 	CheckCollisions();
 
 	m_Position.x += m_Velocity.x;
@@ -145,6 +150,7 @@ void Player::FixedUpdate()
 		}
 	}
 }
+
 
 void Player::CaluclateJumpPhysics()
 {

@@ -16,4 +16,6 @@ public:
 	
 	void Update() override;
 	void Render() override;
+
+	inline std::vector<Coin*>& GetCoins() { return m_Coins; }
 };

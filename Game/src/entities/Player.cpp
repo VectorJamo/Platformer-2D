@@ -4,8 +4,12 @@
 #include "src/input/KeyManager.h"
 #include "src/map/MapConstants.h"
 #include "src/utils/CollisionHandler.h"
+#include "src/layers/Layer.h"
+#include "src/layers/ObjectLayer.h"
+#include "src/audio/SfxPool.h"
 
 #include "Application.h"
+
 
 Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer)
 	:Entity(playerID, playerSpritePath)
@@ -48,10 +52,12 @@ void Player::LoadAssets()
 	m_JumpTexture = new Texture("res/images/Characters/Mask_Dude/Jump.png", m_Renderer);
 	m_FallTexture = new Texture("res/images/Characters/Mask_Dude/Fall.png", m_Renderer);
 
-	for (int i = 0; i < 11; i++) {
+	for (int i = 0; i < 11; i++) 
+	{
 		m_IdleAnimationRects[i] = { 32 * i, 0, 32, 32 };
 	}
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 12; i++) 
+	{
 		m_RunAnimationRects[i] = { 32 * i, 0, 32, 32 };
 	}
 }
@@ -86,6 +92,23 @@ void Player::CheckCollisions()
 
 			m_CurrentJumpVelocity = m_JumpYVel; // Reset to initial velocity for the next jump			
 		}
+	}
+
+	// Player-Object collision
+	ObjectLayer* objLayer = (ObjectLayer*)Layer::CurrentLayers["objectLayer"];
+	std::vector<Coin*>& coins = objLayer->GetCoins();
+
+	for (int i = 0; i < coins.size();)
+	{
+		if (CollisionHandler::CheckCollision(this, coins[i], m_Velocity, vec2(0.0f, 0.0f)))
+		{
+			m_Coins++;
+			SfxPool::coinSfx->Play();
+
+			coins.erase(coins.begin() + i);
+			continue;
+		}
+		i++;
 	}
 }
 

@@ -26,13 +26,13 @@ bool CollisionHandler::CheckCollision(Entity* e1, Entity* e2, const vec2& e1Vel,
 
 bool CollisionHandler::CheckCollision(Entity* entity, GameObject* object, const vec2& entityVel, const vec2& objectVel)
 {
-	float entityXNew = entity->GetPosition().x + entityVel.x;
-	float entityYNew = entity->GetPosition().y + entityVel.y;
+	float entityXNew = entity->GetPosition().x + entity->GetCollisionRect().x + entityVel.x;
+	float entityYNew = entity->GetPosition().y + entity->GetCollisionRect().y + entityVel.y;
 	float objectXNew = object->GetPosition().x + objectVel.x;
 	float objectYNew = object->GetPosition().y + objectVel.y;
 
 	if (entityXNew > objectXNew + object->GetDimension().x || entityYNew > objectYNew + object->GetDimension().y
-		|| objectXNew > entityXNew + entity->GetDimension().x || objectYNew > entityYNew + entity->GetDimension().y)
+		|| objectXNew > entityXNew + entity->GetCollisionRect().w || objectYNew > entityYNew + entity->GetCollisionRect().h)
 	{
 		return false;
 	}

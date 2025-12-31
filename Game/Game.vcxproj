@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\Camera.h" />
+    <ClInclude Include="src\audio\SfxPool.h" />
     <ClInclude Include="src\entities\Entities.h" />
     <ClInclude Include="src\entities\Player.h" />
     <ClInclude Include="src\entities\PlayerAnimations.h" />
@@ -154,6 +156,8 @@
     <ClInclude Include="src\layers\EntityLayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\Camera.cpp" />
+    <ClCompile Include="src\audio\SfxPool.cpp" />
     <ClCompile Include="src\entities\Player.cpp" />
     <ClCompile Include="src\graphics\Animation.cpp" />
     <ClCompile Include="src\layers\ObjectLayer.cpp" />

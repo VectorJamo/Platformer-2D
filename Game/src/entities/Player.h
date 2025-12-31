@@ -43,6 +43,9 @@ private:
 	static constexpr float m_TargetFrameTime = 1.0f/(float)m_TargetFPS;
 	float m_CumulativeTime = 0.0f;
 
+	// Player inventory
+	int m_Coins = 0;
+
 public:
 	Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer);
 	~Player();

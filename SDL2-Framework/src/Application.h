@@ -12,7 +12,7 @@ private:
 
 	// For FPS logging
 	static double m_Frequency;
-	static constexpr float m_FPSLogFrequency = 1.0f;
+	static constexpr float m_FPSLogFrequency = 2.0f;
 	static double m_TimePassed; 	
 
 private:

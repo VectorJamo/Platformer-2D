@@ -6,7 +6,6 @@
 #include "ui/UIManager.h"
 #include "states/StateManager.h"
 
-
 double Application::m_DeltaTime= 0.0;
 double Application::m_TimePassed = 0.0;
 double Application::m_Frequency = 0.0;
@@ -63,6 +62,6 @@ void Application::Run()
 
 		m_Window->Display();
 
-		//LogFPS();
+		LogFPS();
 	}
 }

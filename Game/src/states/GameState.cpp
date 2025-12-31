@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "src/audio/SfxPool.h"
 
 GameState::GameState(Window* window, bool* isAppRunning)
 	:StateManager(window, isAppRunning)
@@ -11,6 +12,8 @@ GameState::~GameState()
 
 void GameState::Init()
 {
+	SfxPool::InitializeSfx();
+
 	m_MapLayer = new MapLayer("mapLayer", m_Window->GetRenderer());
 	m_EntityLayer = new EntityLayer("entityLayer", m_Window->GetRenderer());
 	m_ObjectLayer = new ObjectLayer("objectLayer", m_Window->GetRenderer());

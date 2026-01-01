@@ -1,5 +1,5 @@
 #include "Coin.h"
-
+#include "../graphics/Camera.h"
 #include <iostream>
 
 Coin::Coin(const vec2& position, const vec2& dimension, int objectID, const char* texturePath)
@@ -25,7 +25,7 @@ void Coin::Update()
 void Coin::Render(SDL_Renderer* renderer)
 {
 	SDL_Rect srcRect = m_CoinAnimation->GetCurrentRect();
-	SDL_Rect destRect = { m_Position.x, m_Position.y, m_Dimension.width, m_Dimension.height };
+	SDL_Rect destRect = { m_Position.x - Camera::CamTopLeftX, m_Position.y - Camera::CamTopLeftY, m_Dimension.width, m_Dimension.height };
 	SDL_RenderCopy(renderer, m_ObjectTexture->GetTextureBuffer(), &srcRect, &destRect);
 }
 

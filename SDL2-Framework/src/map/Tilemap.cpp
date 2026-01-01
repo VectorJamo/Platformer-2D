@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "src/graphics/Camera.h"
 
 Tilemap::Tilemap(const char* filePath, int numTileRows, int numTileCols, SpriteSheet* worldSheet)
 {
@@ -60,7 +61,7 @@ void Tilemap::RenderFromSprite(SDL_Renderer* renderer)
 			int x = j * MapConstants::TileWidth;
 			int y = i * MapConstants::TileHeight;
 
-			SDL_Rect destRect = { x, y, MapConstants::TileWidth, MapConstants::TileHeight };
+			SDL_Rect destRect = { x - Camera::CamTopLeftX, y - Camera::CamTopLeftY, MapConstants::TileWidth, MapConstants::TileHeight };
 						
 			if (m_TileToSprite.count(m_Map[i][j]))
 			{

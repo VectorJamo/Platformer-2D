@@ -10,6 +10,8 @@
 
 #include "Application.h"
 
+#include "../graphics/Camera.h"
+
 
 Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer)
 	:Entity(playerID, playerSpritePath)
@@ -165,6 +167,9 @@ void Player::Update()
 	m_Position.y += m_Velocity.y;
 
 	m_CurrentAnimation->PlayAnimation();
+
+	// Update the Camera
+	Camera::Update(m_Position, m_Dimension);
 }
 
 void Player::FixedUpdate()
@@ -198,7 +203,7 @@ void Player::CaluclateJumpPhysics()
 
 void Player::Render(SDL_Renderer* renderer)
 {
-	SDL_Rect destRect = { m_Position.x, m_Position.y, m_Dimension.width, m_Dimension.height };
+	SDL_Rect destRect = { m_Position.x - Camera::CamTopLeftX, m_Position.y - Camera::CamTopLeftY, m_Dimension.width, m_Dimension.height };
 
 	if (!m_Jump)
 	{

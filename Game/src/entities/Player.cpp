@@ -95,6 +95,12 @@ void Player::CheckCollisions()
 			m_CurrentJumpVelocity = m_JumpYVel; // Reset to initial velocity for the next jump			
 		}
 	}
+	else {
+		if (!m_Jump)
+		{
+			m_IsFalling = true;
+		}
+	}
 
 	// Player-Object collision
 	ObjectLayer* objLayer = (ObjectLayer*)Layer::CurrentLayers["objectLayer"];
@@ -209,12 +215,25 @@ void Player::Render(SDL_Renderer* renderer)
 	{
 		SDL_Rect srcRect = m_CurrentAnimation->GetCurrentRect();
 
-		if (m_ShouldFlipTexture) { 
-			m_CurrentAnimation->GetAnimationTexture()->RenderFlippedHorizontally(m_Renderer, &srcRect, &destRect);
+		if (m_IsFalling)
+		{
+			if (m_ShouldFlipTexture)
+			{
+				m_FallTexture->RenderFlippedHorizontally(m_Renderer, NULL, &destRect);
+			}
+			else {
+				m_FallTexture->Render(m_Renderer, NULL, &destRect);
+			}
 		}
 		else {
-			m_CurrentAnimation->GetAnimationTexture()->Render(m_Renderer, &srcRect, &destRect);
+			if (m_ShouldFlipTexture) { 
+				m_CurrentAnimation->GetAnimationTexture()->RenderFlippedHorizontally(m_Renderer, &srcRect, &destRect);
+			}
+			else {
+				m_CurrentAnimation->GetAnimationTexture()->Render(m_Renderer, &srcRect, &destRect);
+			}
 		}
+
 	}
 	else {
 		// Descend jump state

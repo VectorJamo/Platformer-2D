@@ -2,5 +2,5 @@
 
 enum class Objects
 {
-	Coin = 0,
+	Coin = 0, Spike
 };

@@ -27,8 +27,8 @@ Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Ren
 	m_ShouldMove = false;
 	m_ShouldFlipTexture = false;
 
-	m_Position.x = 10 * MapConstants::TileWidth;
-	m_Position.y = 6 * MapConstants::TileHeight;
+	m_Position.x = 2 * MapConstants::TileWidth;
+	m_Position.y = 8 * MapConstants::TileHeight;
 	m_Dimension = vec2(MapConstants::TileWidth, MapConstants::TileHeight);
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
@@ -146,6 +146,7 @@ void Player::Update()
 	if (KeyManager::IsKeyPressed(SDLK_SPACE) && !m_Jump)
 	{
 		m_Jump = true;
+		SfxPool::jumpSfx->Play();
 	}
 
 	if (m_Jump && !m_IsFalling)

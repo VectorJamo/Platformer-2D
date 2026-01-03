@@ -14,7 +14,6 @@ private:
 
 	std::vector<Coin*> m_Coins;
 	std::vector<Spike*> m_Spikes;
-
 	std::vector<Saw*> m_Saws;
 
 public:

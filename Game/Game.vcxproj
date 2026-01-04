@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\states\MenuState.h" />
     <ClInclude Include="src\objects\Spike.h" />
     <ClInclude Include="src\graphics\Camera.h" />
     <ClInclude Include="src\audio\SfxPool.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\objects\Saw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\states\MenuState.cpp" />
     <ClCompile Include="src\objects\Spike.cpp" />
     <ClCompile Include="src\graphics\Camera.cpp" />
     <ClCompile Include="src\audio\SfxPool.cpp" />

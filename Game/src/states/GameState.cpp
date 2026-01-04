@@ -8,6 +8,9 @@ GameState::GameState(Window* window, bool* isAppRunning)
 
 GameState::~GameState()
 {
+	delete m_MapLayer;
+	delete m_EntityLayer;
+	delete m_ObjectLayer;
 }
 
 void GameState::Init()

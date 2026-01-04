@@ -8,6 +8,7 @@ protected:
 
 public:
 	static StateManager* CurrentState;
+	static bool IsStateChanged;
 
 	StateManager(Window* window, bool* isAppRunning);
 	virtual ~StateManager();

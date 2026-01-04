@@ -63,6 +63,9 @@
     <ClInclude Include="src\states\MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\layers\UILayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\states\GameState.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\states\MenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\layers\UILayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

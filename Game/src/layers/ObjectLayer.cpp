@@ -6,16 +6,13 @@ ObjectLayer::ObjectLayer(const std::string& layerName, SDL_Renderer* renderer)
 	:Layer(layerName, renderer)
 {
 	Layer::CurrentLayers[layerName] = this;
-	
+
 	m_Coins.reserve(m_NumCoins);
 	m_Spikes.reserve(m_NumSpikes);
 
 	AddCoins();
 	AddSpikes();
-
-	Saw* saw = new Saw(vec2(12 * 32, 4 * 32), vec2(32.0f, 32.0f), "res/images/Traps/Saw/On.png", m_Renderer);
-	saw->EnableHorizontalMotion(saw->GetPosition().x, 32*4 + saw->GetPosition().x);
-	m_Saws.emplace_back(saw);
+	AddSaws();
 }
 
 ObjectLayer::~ObjectLayer()
@@ -59,6 +56,18 @@ void ObjectLayer::AddSpikes()
 	m_Spikes.emplace_back(new Spike(vec2(22 * 32, 5 * 32), "res/images/Traps/Spikes/Idle.png"));
 	m_Spikes.emplace_back(new Spike(vec2(23 * 32, 5 * 32), "res/images/Traps/Spikes/Idle.png"));
 	m_Spikes.emplace_back(new Spike(vec2(28 * 32, 3 * 32), "res/images/Traps/Spikes/Idle.png"));
+}
+
+void ObjectLayer::AddSaws()
+{
+	Saw* saw1 = new Saw(vec2(12 * 32, 4 * 32), vec2(32.0f, 32.0f), "res/images/Traps/Saw/On.png", m_Renderer);
+	saw1->EnableHorizontalMotion(saw1->GetPosition().x, 32 * 4 + saw1->GetPosition().x);
+
+	Saw* saw2 = new Saw(vec2(34 * 32, 7 * 32), vec2(32.0f, 32.0f), "res/images/Traps/Saw/On.png", m_Renderer);
+	saw2->EnableHorizontalMotion(saw2->GetPosition().x, 32 * 4 + saw2->GetPosition().x);
+
+	m_Saws.emplace_back(saw1);
+	m_Saws.emplace_back(saw2);
 }
 
 void ObjectLayer::Update()

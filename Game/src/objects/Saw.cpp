@@ -15,6 +15,8 @@ Saw::Saw(const vec2& position, const vec2& dimension, const char* texturePath, S
 	m_SawAnimation = new Animation(m_ObjectTexture, m_SawAnimationRects, 8);
 	m_CurrentDirection = SawDirection::IDLE;
 	m_Speed = 100.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
 }
 
 Saw::~Saw()
@@ -33,7 +35,9 @@ void Saw::Update()
 {
 	if (m_CurrentDirection == SawDirection::LEFT)
 	{
-		float m_XNew = m_Position.x - m_Speed * Application::GetDeltaTime();
+		m_Velocity.x = -m_Speed * Application::GetDeltaTime();
+
+		float m_XNew = m_Position.x + m_Velocity.x;
 		if (m_XNew > m_LeftXMax)
 		{
 			m_Position.x = m_XNew;
@@ -44,7 +48,9 @@ void Saw::Update()
 	}
 	else if(m_CurrentDirection == SawDirection::RIGHT) 
 	{
-		float m_RightNew = m_Position.x + m_Speed * Application::GetDeltaTime() + m_Dimension.width ;
+		m_Velocity.x = m_Speed * Application::GetDeltaTime();
+
+		float m_RightNew = m_Position.x + m_Velocity.x + m_Dimension.width;
 		if (m_RightNew < m_RightXMax)
 		{
 			m_Position.x = m_RightNew - m_Dimension.width;
@@ -66,5 +72,4 @@ void Saw::Render(SDL_Renderer* renderer)
 
 void Saw::Render(SDL_Renderer* renderer, float camX, float camY)
 {
-
 }

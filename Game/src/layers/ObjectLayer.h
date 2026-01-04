@@ -22,9 +22,12 @@ public:
 	
 	void AddCoins();
 	void AddSpikes();
+	void AddSaws();
 
 	void Update() override;
 	void Render() override;
 
 	inline std::vector<Coin*>& GetCoins() { return m_Coins; }
+	inline std::vector<Spike*>& GetSpikes() { return m_Spikes; }
+	inline std::vector<Saw*>& GetSaws() { return m_Saws; }
 };

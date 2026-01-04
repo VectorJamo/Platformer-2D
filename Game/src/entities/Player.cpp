@@ -24,6 +24,7 @@ Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Ren
 	SetupAnimations();
 
 	m_CurrentDirection = PlayerDirections::RIGHT;
+	m_CurrentAnimation = &m_Animations[(int)PlayerAnimations::IDLE_RIGHT];
 	m_ShouldMove = false;
 	m_ShouldFlipTexture = false;
 
@@ -73,9 +74,61 @@ void Player::SetupAnimations()
 
 void Player::CheckCollisions()
 {
+	// Player-Object collision
+	ObjectLayer* objLayer = (ObjectLayer*)Layer::CurrentLayers["objectLayer"];
+
+	std::vector<Coin*>& coins = objLayer->GetCoins();
+	for (int i = 0; i < coins.size();)
+	{
+		if (CollisionHandler::CheckCollision(this, coins[i], m_Velocity, vec2(0.0f, 0.0f)))
+		{
+			m_Coins++;
+			SfxPool::coinSfx->Play();
+
+			coins.erase(coins.begin() + i);
+			continue;
+		}
+		i++;
+	}
+	std::vector<Spike*>& spikes = objLayer->GetSpikes();
+	for (int i = 0; i < spikes.size(); i++)
+	{
+		if (CollisionHandler::CheckCollision(this, spikes[i], m_Velocity, vec2(0.0f, 0.0f)) && !m_IsInvincible)
+		{
+			m_Health -= 10;
+			SfxPool::hurtSfx->Play();
+			m_IsInvincible = true;
+		}
+	}
+	std::vector<Saw*>& saws = objLayer->GetSaws();
+	for (int i = 0; i < saws.size(); i++)
+	{
+		CollisionDirection direction = CollisionHandler::CheckCollisionWithDirection(this, saws[i], m_Velocity, saws[i]->GetVelocity());
+		if (direction.xCollision || direction.yCollision)
+		{
+			if (!m_IsInvincible)
+			{
+				m_Health -= 33;
+				SfxPool::hurtSfx->Play();
+				m_IsInvincible = true;
+			}
+
+			if (direction.xCollision)
+			{
+				m_Velocity.x = 0.0f;
+			}
+			if (direction.yCollision) {
+				std::cout << "YCOLLISION" << std::endl;
+				std::cout << m_Velocity.y << std::endl;
+				m_Velocity.y = 0.0f;
+			}
+
+			m_Velocity.x += saws[i]->GetVelocity().x;
+		}
+	}
+
+	// Player - world collision
 	CollisionDirection collisionDirection = CollisionHandler::CheckEntityWorldCollision(this, m_Map, m_Velocity);
-	bool first = false;
-	bool second = false;
 	if (collisionDirection.xCollision)
 	{
 		m_Velocity.x = 0.0f;
@@ -102,21 +155,25 @@ void Player::CheckCollisions()
 		}
 	}
 
-	// Player-Object collision
-	ObjectLayer* objLayer = (ObjectLayer*)Layer::CurrentLayers["objectLayer"];
-	std::vector<Coin*>& coins = objLayer->GetCoins();
-
-	for (int i = 0; i < coins.size();)
+	if (m_IsInvincible)
 	{
-		if (CollisionHandler::CheckCollision(this, coins[i], m_Velocity, vec2(0.0f, 0.0f)))
-		{
-			m_Coins++;
-			SfxPool::coinSfx->Play();
+		SDL_SetTextureAlphaMod(m_IdleTexture->GetTextureBuffer(), 150);
+		SDL_SetTextureAlphaMod(m_RunTexture->GetTextureBuffer(), 150);
+		SDL_SetTextureAlphaMod(m_FallTexture->GetTextureBuffer(), 150);
+		SDL_SetTextureAlphaMod(m_JumpTexture->GetTextureBuffer(), 150);
 
-			coins.erase(coins.begin() + i);
-			continue;
+		m_InvincibleTimePassed += Application::GetDeltaTime();
+		if (m_InvincibleTimePassed > m_InvincibilityTime)
+		{
+			m_IsInvincible = false;
+			m_InvincibleTimePassed = 0.0f;
+
+			SDL_SetTextureAlphaMod(m_IdleTexture->GetTextureBuffer(), 255);
+			SDL_SetTextureAlphaMod(m_RunTexture->GetTextureBuffer(), 255);
+			SDL_SetTextureAlphaMod(m_FallTexture->GetTextureBuffer(), 255);
+			SDL_SetTextureAlphaMod(m_JumpTexture->GetTextureBuffer(), 255);
+
 		}
-		i++;
 	}
 }
 
@@ -211,7 +268,7 @@ void Player::CaluclateJumpPhysics()
 void Player::Render(SDL_Renderer* renderer)
 {
 	SDL_Rect destRect = { m_Position.x - Camera::CamTopLeftX, m_Position.y - Camera::CamTopLeftY, m_Dimension.width, m_Dimension.height };
-
+	
 	if (!m_Jump)
 	{
 		SDL_Rect srcRect = m_CurrentAnimation->GetCurrentRect();
@@ -262,9 +319,9 @@ void Player::Render(SDL_Renderer* renderer)
 	}
 
 	// Collision rect
-	//SDL_Rect collisionRectRenderable = { m_Position.x + m_CollisionRect.x, m_Position.y + m_CollisionRect.y, m_CollisionRect.w, m_CollisionRect.h };
-	//SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 200);
-	//SDL_RenderDrawRect(m_Renderer, &collisionRectRenderable);
+	SDL_Rect collisionRectRenderable = { m_Position.x - Camera::CamTopLeftX + m_CollisionRect.x, m_Position.y - Camera::CamTopLeftY + m_CollisionRect.y, m_CollisionRect.w, m_CollisionRect.h };
+	SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 200);
+	SDL_RenderDrawRect(m_Renderer, &collisionRectRenderable);
 }
 
 void Player::Render(SDL_Renderer* renderer, float camX, float camY)

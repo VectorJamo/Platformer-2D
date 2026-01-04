@@ -12,5 +12,7 @@ public:
 	
 	void Update() override;
 	void Render() override;
+
+	inline Player* GetPlayer() const { return m_Player; }
 };
 

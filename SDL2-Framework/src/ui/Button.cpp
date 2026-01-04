@@ -13,6 +13,7 @@ Button::Button(int x, int y, int padding, const std::string& text, int pointSize
 	m_ButtonColor = buttonColor;
 
 	m_Text = new Text(text, x + padding, y + padding, pointSize, renderer);
+	m_Text->SetColor(m_TextColor);
 
 	isMouseOver = false;
 	wasClicked = false;
@@ -22,7 +23,6 @@ Button::~Button()
 {
 	delete m_Text;
 }
-
 
 void Button::Render()
 {
@@ -34,4 +34,11 @@ void Button::Render()
 
 	// Text
 	m_Text->Render();
+}
+
+void Button::SetPosition(float x, float y)
+{
+	m_X = x;
+	m_Y = y;
+	m_Text->SetPosition(m_X + m_Padding, m_Y + m_Padding);
 }

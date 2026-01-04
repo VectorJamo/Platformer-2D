@@ -157,6 +157,7 @@
     <ClInclude Include="src\states\GameState.h" />
     <ClInclude Include="src\layers\EntityLayer.h" />
     <ClInclude Include="src\objects\Saw.h" />
+    <ClInclude Include="src\layers\UILayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\states\MenuState.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\layers\EntityLayer.cpp" />
     <ClCompile Include="src\objects\Saw.cpp" />
+    <ClCompile Include="src\layers\UILayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDL2-Framework\SDL2-Framework.vcxproj">

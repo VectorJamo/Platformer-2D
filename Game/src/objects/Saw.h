@@ -16,6 +16,7 @@ private:
 	SDL_Rect m_SawAnimationRects[8];
 
 	SawDirection m_CurrentDirection;
+	vec2 m_Velocity;
 	float m_LeftXMax, m_RightXMax;
 	float m_Speed;
 
@@ -28,5 +29,8 @@ public:
 	void Update() override;
 	void Render(SDL_Renderer* renderer) override;
 	void Render(SDL_Renderer* renderer, float camX, float camY) override;
+
+	inline SawDirection GetCurrentDirection() const { return m_CurrentDirection; }
+	inline vec2 GetVelocity() const { return m_Velocity; }
 };
 

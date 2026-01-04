@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "src/states/GameState.h"
+#include "src/states/MenuState.h"
 
 #include "audio/SoundManager.h"
 #include "utils/AssetLoader.h"
@@ -24,7 +25,7 @@ Application::Application(int width, int height, const char* title)
 	}
 	AssetLoader::SetRenderer(m_Window->GetRenderer());
 
-	StateManager::CurrentState = new GameState(m_Window, &m_Running);
+	StateManager::CurrentState = new MenuState(m_Window, &m_Running);
 	StateManager::CurrentState->Init();
 
 	m_Frequency = SDL_GetPerformanceFrequency();

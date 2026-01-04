@@ -31,6 +31,7 @@ public:
 	void SetPosition(int x, int y);
 	void SetFont(TTF_Font* font);
 	void SetTextAlpha(char alpha);
+	void SetColor(SDL_Color& color);
 
 	// Getters
 	inline std::string& GetString() { return m_Text; }

@@ -7,6 +7,8 @@
 class MapLayer : public Layer
 {
 private:
+	Texture* m_Background;
+
 	// Tilemap
 	SpriteSheet* m_WorldSheet;
 	Tilemap* m_Map;
@@ -19,5 +21,4 @@ public:
 	void Render() override;
 
 	inline Tilemap* GetTileMap() { return m_Map; }
-
 };

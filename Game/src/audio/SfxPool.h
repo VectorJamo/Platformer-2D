@@ -3,7 +3,7 @@
 
 struct SfxPool
 {
-	static SoundEffect* coinSfx, * jumpSfx;
+	static SoundEffect* coinSfx, * jumpSfx, *hurtSfx;
 	
 	static void InitializeSfx();
 };

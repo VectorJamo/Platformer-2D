@@ -39,6 +39,48 @@ bool CollisionHandler::CheckCollision(Entity* entity, GameObject* object, const 
 	return true;
 }
 
+CollisionDirection CollisionHandler::CheckCollisionWithDirection(Entity* entity, GameObject* object, const vec2& entityVel, const vec2& objectVel)
+{
+	CollisionDirection collisionDirection;
+
+	if (entityVel.x != 0.0f)
+	{
+		// Check for x-axis collision
+		float entityXNew = entity->GetPosition().x + entity->GetCollisionRect().x + entityVel.x;
+		float entityYNew = entity->GetPosition().y + entity->GetCollisionRect().y;
+		float objectXNew = object->GetPosition().x;
+		float objectYNew = object->GetPosition().y;
+
+		if (entityXNew > objectXNew + object->GetDimension().width || entityYNew > objectYNew + object->GetDimension().y
+			|| objectXNew > entityXNew + entity->GetCollisionRect().w || objectYNew > entityYNew + entity->GetCollisionRect().h)
+		{
+			collisionDirection.xCollision = false;
+		}
+		else {
+			collisionDirection.xCollision = true;
+		}
+	}
+	if (entityVel.y != 0.0f)
+	{
+		// Check for y-axis collision
+		float entityXNew = entity->GetPosition().x + entity->GetCollisionRect().x;
+		float entityYNew = entity->GetPosition().y + entity->GetCollisionRect().y + entityVel.y;
+		float objectXNew = object->GetPosition().x;
+		float objectYNew = object->GetPosition().y;
+
+		if (entityXNew > objectXNew + object->GetDimension().width || entityYNew > objectYNew + object->GetDimension().y
+			|| objectXNew > entityXNew + entity->GetCollisionRect().w || objectYNew > entityYNew + entity->GetCollisionRect().h)
+		{
+			collisionDirection.yCollision = false;
+		}
+		else {
+			collisionDirection.yCollision = true;
+		}
+	}
+
+	return collisionDirection;
+}
+
 bool CollisionHandler::CheckCollision(GameObject* o1, GameObject* o2, const vec2& o1Vel, const vec2& o2Vel)
 {
 	float o1XNew = o1->GetPosition().x + o1Vel.x;

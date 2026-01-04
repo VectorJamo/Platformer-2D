@@ -43,8 +43,14 @@ private:
 	static constexpr float m_TargetFrameTime = 1.0f/(float)m_TargetFPS;
 	float m_CumulativeTime = 0.0f;
 
-	// Player inventory
+	// Player Stats
 	int m_Coins = 0;
+	int m_Health = 100;
+	
+	// Player Effects
+	bool m_IsInvincible = false;
+	float m_InvincibilityTime = 2.0f; // 2seconds
+	float m_InvincibleTimePassed = 0.0f;
 
 public:
 	Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer);
@@ -59,4 +65,7 @@ public:
 	void Update() override;
 	void Render(SDL_Renderer* renderer) override;
 	void Render(SDL_Renderer* renderer, float camX, float camY) override;
+
+	inline int GetCoins() const { return m_Coins; }
+	inline int GetHealth() const { return m_Health; }
 };

@@ -21,6 +21,8 @@ public:
 
 	void Render();
 
+	void SetPosition(float x, float y);
+
 	inline int GetX() { return m_X; }
 	inline int GetY() { return m_Y; }
 	inline int GetWidth() { return m_Text->GetWidth() + m_Padding * 2; }

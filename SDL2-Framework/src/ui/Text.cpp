@@ -75,6 +75,14 @@ void Text::SetTextAlpha(char alpha)
 	SDL_SetTextureAlphaMod(m_Texture, alpha);
 }
 
+void Text::SetColor(SDL_Color& color)
+{
+	SDL_DestroyTexture(m_Texture);
+
+	m_Color = color;
+	m_Texture = CreateTexture();
+}
+
 SDL_Texture* Text::CreateTexture()
 {
 	SDL_Surface* surface = TTF_RenderText_Blended(m_CurrentFont, m_Text.c_str(), m_Color);

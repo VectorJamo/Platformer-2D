@@ -15,6 +15,7 @@ class CollisionHandler
 public:
 	static bool CheckCollision(Entity* e1, Entity* e2, const vec2& e1Vel, const vec2& e2Vel);
 	static bool CheckCollision(Entity* entity, GameObject* object, const vec2& entityVel, const vec2& objectVel);
+	static CollisionDirection CheckCollisionWithDirection(Entity* entity, GameObject* object, const vec2& entityVel, const vec2& objectVel);
 	static bool CheckCollision(GameObject* o1, GameObject* o2, const vec2& o1Vel, const vec2& o2Vel);
 
 	static CollisionDirection CheckEntityWorldCollision(Entity* entity, Tilemap* map, const vec2& entityVel);

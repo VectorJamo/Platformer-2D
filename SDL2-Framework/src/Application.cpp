@@ -63,6 +63,12 @@ void Application::Run()
 
 		m_Window->Display();
 
+		if (StateManager::LastState != nullptr)
+		{
+			delete StateManager::LastState;
+			std::cout << "Last State Deleted!" << std::endl;
+		}
+
 		LogFPS();
 	}
 }

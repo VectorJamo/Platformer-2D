@@ -3,6 +3,7 @@
 #include "../objects/Spike.h"
 #include "../objects/Saw.h"
 #include "../objects/Objects.h"
+#include "../objects/Trophy.h"
 #include <iostream>
 #include <vector>
 
@@ -15,6 +16,8 @@ private:
 	std::vector<Coin*> m_Coins;
 	std::vector<Spike*> m_Spikes;
 	std::vector<Saw*> m_Saws;
+
+	Trophy* m_Trophy;
 
 public:
 	ObjectLayer(const std::string& layerName, SDL_Renderer* renderer);
@@ -30,4 +33,5 @@ public:
 	inline std::vector<Coin*>& GetCoins() { return m_Coins; }
 	inline std::vector<Spike*>& GetSpikes() { return m_Spikes; }
 	inline std::vector<Saw*>& GetSaws() { return m_Saws; }
+	inline Trophy* GetTrophy() { return m_Trophy; }
 };

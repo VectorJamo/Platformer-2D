@@ -1,37 +1,37 @@
-#include "MenuState.h"
+#include "GameOverState.h"
 #include "GameState.h"
 
-MenuState::MenuState(Window* window, bool* isAppRunning)
+GameOverState::GameOverState(Window* window, bool* isAppRunning)
 	:StateManager(window, isAppRunning)
 {
 	
 }
 
-MenuState::~MenuState()
+GameOverState::~GameOverState()
 {
 }
 
-void MenuState::Init()
+void GameOverState::Init()
 {
-	m_TitleText = new Text("Platformer", 100, 100, 32, m_Window->GetRenderer());
+	m_GameOverText = new Text("Game Over", 100, 100, 32, m_Window->GetRenderer());
 	m_CurrentY = 50.0f;
-	m_TitleText->SetPosition(m_Window->GetWidth() / 2 - m_TitleText->GetWidth() / 2, m_CurrentY);
-	m_CurrentY += m_TitleText->GetHeight();
+	m_GameOverText->SetPosition(m_Window->GetWidth() / 2 - m_GameOverText->GetWidth() / 2, m_CurrentY);
+	m_CurrentY += m_GameOverText->GetHeight();
 	m_CurrentY += m_Gap*3;
 
-	m_PlayButton = new Button(200.0f, m_CurrentY, 5, "Play", 18, { 0, 0, 0, 0 }, {255, 255, 255, 255}, m_Window->GetRenderer());
-	m_PlayButton->SetPosition(m_Window->GetWidth()/2 - m_PlayButton->GetWidth()/2, m_CurrentY);
+	m_RetryButton = new Button(200.0f, m_CurrentY, 5, "Retry", 18, { 0, 0, 0, 0 }, {255, 255, 255, 255}, m_Window->GetRenderer());
+	m_RetryButton->SetPosition(m_Window->GetWidth()/2 - m_RetryButton->GetWidth()/2, m_CurrentY);
 
-	m_CurrentY += m_PlayButton->GetHeight();
+	m_CurrentY += m_RetryButton->GetHeight();
 	m_CurrentY += m_Gap;
 	m_QuitButton = new Button(200.0f, m_CurrentY, 5, "Quit", 18, { 0, 0, 0, 0 }, { 255, 255, 255, 255 }, m_Window->GetRenderer());
 	m_QuitButton->SetPosition(m_Window->GetWidth() / 2 - m_QuitButton->GetWidth() / 2, m_CurrentY);
 
-	UIManager::AddButton(m_PlayButton);
+	UIManager::AddButton(m_RetryButton);
 	UIManager::AddButton(m_QuitButton);
 }
 
-void MenuState::Update()
+void GameOverState::Update()
 {
 	SDL_Event ev;
 	while (SDL_PollEvent(&ev))
@@ -48,12 +48,13 @@ void MenuState::Update()
 		UIManager::UpdateUI(&ev);
 	}
 
-	if (m_PlayButton->wasClicked)
+	if (m_RetryButton->wasClicked)
 	{
 		UIManager::ClearUI();
+
 		Window* windowPointer = m_Window;
 		bool* appRunningPointer = m_IsAppRunning;
-
+	
 		delete StateManager::CurrentState;
 
 		StateManager::CurrentState = new GameState(windowPointer, appRunningPointer);
@@ -66,9 +67,9 @@ void MenuState::Update()
 	}
 }
 
-void MenuState::Render()
+void GameOverState::Render()
 {
-	m_TitleText->Render();
-	m_PlayButton->Render();
+	m_GameOverText->Render();
+	m_RetryButton->Render();
 	m_QuitButton->Render();
 }

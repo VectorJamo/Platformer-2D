@@ -12,7 +12,6 @@
 
 #include "../graphics/Camera.h"
 
-
 Player::Player(int playerID, const char* playerSpritePath, Tilemap* map, SDL_Renderer* renderer)
 	:Entity(playerID, playerSpritePath)
 {
@@ -96,6 +95,7 @@ void Player::CheckCollisions()
 		if (CollisionHandler::CheckCollision(this, spikes[i], m_Velocity, vec2(0.0f, 0.0f)) && !m_IsInvincible)
 		{
 			m_Health -= 10;
+
 			SfxPool::hurtSfx->Play();
 			m_IsInvincible = true;
 		}
@@ -103,8 +103,8 @@ void Player::CheckCollisions()
 	std::vector<Saw*>& saws = objLayer->GetSaws();
 	for (int i = 0; i < saws.size(); i++)
 	{
-		CollisionDirection direction = CollisionHandler::CheckCollisionWithDirection(this, saws[i], m_Velocity, saws[i]->GetVelocity());
-		if (direction.xCollision || direction.yCollision)
+		bool status = CollisionHandler::CheckCollision(this, saws[i], m_Velocity, saws[i]->GetVelocity());
+		if (status)
 		{
 			if (!m_IsInvincible)
 			{
@@ -113,18 +113,20 @@ void Player::CheckCollisions()
 				m_IsInvincible = true;
 			}
 
-			if (direction.xCollision)
-			{
-				m_Velocity.x = 0.0f;
-			}
-			if (direction.yCollision) {
-				std::cout << "YCOLLISION" << std::endl;
-				std::cout << m_Velocity.y << std::endl;
-				m_Velocity.y = 0.0f;
-			}
+			m_Velocity.y = 0.0f;
+
+			m_IsFalling = false;
+			m_Jump = false;
+			m_CurrentJumpVelocity = m_JumpYVel;
 
 			m_Velocity.x += saws[i]->GetVelocity().x;
 		}
+
+	}	
+	bool status = CollisionHandler::CheckCollision(this, objLayer->GetTrophy(), m_Velocity, vec2(0.0f, 0.0f));
+	if (status)
+	{
+		m_HasLevelWon = true;
 	}
 
 	// Player - world collision
@@ -200,7 +202,7 @@ void Player::Update()
 
 		m_CurrentAnimation = &m_Animations[(int)PlayerAnimations::RUN_RIGHT];
 	}
-	if (KeyManager::IsKeyPressed(SDLK_SPACE) && !m_Jump)
+	if (KeyManager::IsKeyPressed(SDLK_SPACE) && !m_Jump && !m_IsFalling)
 	{
 		m_Jump = true;
 		SfxPool::jumpSfx->Play();
@@ -319,9 +321,9 @@ void Player::Render(SDL_Renderer* renderer)
 	}
 
 	// Collision rect
-	SDL_Rect collisionRectRenderable = { m_Position.x - Camera::CamTopLeftX + m_CollisionRect.x, m_Position.y - Camera::CamTopLeftY + m_CollisionRect.y, m_CollisionRect.w, m_CollisionRect.h };
-	SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 200);
-	SDL_RenderDrawRect(m_Renderer, &collisionRectRenderable);
+	//SDL_Rect collisionRectRenderable = { m_Position.x - Camera::CamTopLeftX + m_CollisionRect.x, m_Position.y - Camera::CamTopLeftY + m_CollisionRect.y, m_CollisionRect.w, m_CollisionRect.h };
+	//SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 200);
+	//SDL_RenderDrawRect(m_Renderer, &collisionRectRenderable);
 }
 
 void Player::Render(SDL_Renderer* renderer, float camX, float camY)

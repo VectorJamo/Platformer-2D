@@ -8,7 +8,7 @@ protected:
 
 public:
 	static StateManager* CurrentState;
-	static bool IsStateChanged;
+	static StateManager* LastState; // For memory management
 
 	StateManager(Window* window, bool* isAppRunning);
 	virtual ~StateManager();

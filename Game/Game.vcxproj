@@ -141,6 +141,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\Trophy.h" />
+    <ClInclude Include="src\states\LevelWinState.h" />
+    <ClInclude Include="src\states\GameOverState.h" />
     <ClInclude Include="src\states\MenuState.h" />
     <ClInclude Include="src\objects\Spike.h" />
     <ClInclude Include="src\graphics\Camera.h" />
@@ -160,6 +163,9 @@
     <ClInclude Include="src\layers\UILayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\objects\Trophy.cpp" />
+    <ClCompile Include="src\states\LevelWinState.cpp" />
+    <ClCompile Include="src\states\GameOverState.cpp" />
     <ClCompile Include="src\states\MenuState.cpp" />
     <ClCompile Include="src\objects\Spike.cpp" />
     <ClCompile Include="src\graphics\Camera.cpp" />

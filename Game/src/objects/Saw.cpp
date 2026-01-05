@@ -5,7 +5,7 @@
 #include <iostream>
 
 Saw::Saw(const vec2& position, const vec2& dimension, const char* texturePath, SDL_Renderer* renderer)
-	:GameObject(position, dimension, (int)Objects::Spike, texturePath)
+	:GameObject(position, dimension, (int)Objects::Saw, texturePath)
 {
 	for (int i = 0; i < 8; i++)
 	{

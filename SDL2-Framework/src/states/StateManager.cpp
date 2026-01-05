@@ -1,7 +1,8 @@
 #include "StateManager.h"
 
 StateManager* StateManager::CurrentState = nullptr;
-bool StateManager::IsStateChanged = false;
+StateManager* StateManager::LastState = nullptr;
+
 
 StateManager::StateManager(Window* window, bool* isAppRunning)
 	:m_Window(window), m_IsAppRunning(isAppRunning)
@@ -12,3 +13,4 @@ StateManager::StateManager(Window* window, bool* isAppRunning)
 StateManager::~StateManager()
 {
 }
+

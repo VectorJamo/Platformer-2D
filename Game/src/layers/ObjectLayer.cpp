@@ -13,6 +13,8 @@ ObjectLayer::ObjectLayer(const std::string& layerName, SDL_Renderer* renderer)
 	AddCoins();
 	AddSpikes();
 	AddSaws();
+
+	m_Trophy = new Trophy(vec2(37 * 32.0f, 1 * 32.0f), vec2(32.0f, 32.0f), (int)Objects::Trophy, "res/images/Items/Checkpoints/End/Trophy.png");
 }
 
 ObjectLayer::~ObjectLayer()
@@ -100,4 +102,6 @@ void ObjectLayer::Render()
 	{
 		saw->Render(m_Renderer);
 	}
+
+	m_Trophy->Render(m_Renderer);
 }

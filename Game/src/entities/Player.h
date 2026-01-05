@@ -46,6 +46,7 @@ private:
 	// Player Stats
 	int m_Coins = 0;
 	int m_Health = 100;
+	bool m_HasLevelWon = false;
 	
 	// Player Effects
 	bool m_IsInvincible = false;
@@ -68,4 +69,5 @@ public:
 
 	inline int GetCoins() const { return m_Coins; }
 	inline int GetHealth() const { return m_Health; }
+	inline bool HasWonLevel() const { return m_HasLevelWon; }
 };

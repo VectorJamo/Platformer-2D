@@ -15,6 +15,7 @@
 #include "src/layers/MapLayer.h"
 #include "src/layers/ObjectLayer.h"
 #include "src/layers/UILayer.h"
+#include "src/audio/Music.h"
 
 class GameState : public StateManager
 {
@@ -31,6 +32,9 @@ private:
 	// UI Layer
 	UILayer* m_UILayer;
 
+	// Music
+	Music* m_BackgroundMusic;
+
 public:
 	GameState(Window* window, bool* isAppRunning);
 	~GameState();
@@ -39,5 +43,5 @@ public:
 	void Update() override;
 	void Render() override;
 
-	void LoadAssets();
+	void HandleStateChanges();
 };

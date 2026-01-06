@@ -87,10 +87,11 @@ void GameState::HandleStateChanges()
 
 		Window* windowPointer = m_Window;
 		bool* appRunningPointer = m_IsAppRunning;
+		int coinsCollected = m_EntityLayer->GetPlayer()->GetCoins();
 
 		delete StateManager::CurrentState;
 
-		StateManager::CurrentState = new LevelWinState(windowPointer, appRunningPointer);
+		StateManager::CurrentState = new LevelWinState(windowPointer, appRunningPointer, coinsCollected);
 
 		StateManager::CurrentState->Init();
 	}

@@ -1,10 +1,10 @@
 #include "LevelWinState.h"
 #include "GameState.h"
 
-LevelWinState::LevelWinState(Window* window, bool* isAppRunning)
+LevelWinState::LevelWinState(Window* window, bool* isAppRunning, int coinsCollected)
 	:StateManager(window, isAppRunning)
 {
-	
+	m_CoinsCollected = coinsCollected;
 }
 
 LevelWinState::~LevelWinState()
@@ -17,7 +17,12 @@ void LevelWinState::Init()
 	m_CurrentY = 50.0f;
 	m_LevelWinText->SetPosition(m_Window->GetWidth() / 2 - m_LevelWinText->GetWidth() / 2, m_CurrentY);
 	m_CurrentY += m_LevelWinText->GetHeight();
-	m_CurrentY += m_Gap*3;
+	m_CurrentY += m_Gap;
+
+	m_CoinsCollectedText = new Text("Coins Collected: " + std::to_string(m_CoinsCollected), 100, 100, 32, m_Window->GetRenderer());
+	m_CoinsCollectedText->SetPosition(m_Window->GetWidth() / 2 - m_CoinsCollectedText->GetWidth() / 2, m_CurrentY);
+	m_CurrentY += m_LevelWinText->GetHeight();
+	m_CurrentY += m_Gap * 3;
 
 	m_RetryButton = new Button(200.0f, m_CurrentY, 5, "Retry", 18, { 0, 0, 0, 0 }, {255, 255, 255, 255}, m_Window->GetRenderer());
 	m_RetryButton->SetPosition(m_Window->GetWidth()/2 - m_RetryButton->GetWidth()/2, m_CurrentY);
@@ -70,6 +75,7 @@ void LevelWinState::Update()
 void LevelWinState::Render()
 {
 	m_LevelWinText->Render();
+	m_CoinsCollectedText->Render();
 	m_RetryButton->Render();
 	m_QuitButton->Render();
 }

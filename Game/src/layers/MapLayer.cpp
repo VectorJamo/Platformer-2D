@@ -1,5 +1,7 @@
 #include "MapLayer.h"
 
+#include "src/graphics/Camera.h"
+
 MapLayer::MapLayer(const std::string& layerName, SDL_Renderer* renderer)
 	:Layer(layerName, renderer)
 {
@@ -26,9 +28,21 @@ void MapLayer::Update()
 
 void MapLayer::Render()
 {
-	SDL_Rect dest = { 0, 0, WindowDimensions::Width, WindowDimensions::Height };
-
+	// Scrolling background
+	m_BackgroundX = -Camera::CamTopLeftX/3;
+	if (m_BackgroundX < -WindowDimensions::Width)
+	{
+		m_BackgroundX = m_BackgroundX/WindowDimensions::Width;
+	}
+	
+	// First background
+	SDL_Rect dest = { m_BackgroundX, 0, WindowDimensions::Width, WindowDimensions::Height };
 	m_Background->Render(m_Renderer, NULL, &dest);
+
+	// Second background (Follows the first one)
+	dest = { m_BackgroundX + WindowDimensions::Width, 0, WindowDimensions::Width, WindowDimensions::Height };
+	m_Background->Render(m_Renderer, NULL, &dest);
+
 	// Tilemap
 	m_Map->RenderFromSprite(m_Renderer);
 }

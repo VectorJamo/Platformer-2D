@@ -8,6 +8,7 @@ class MapLayer : public Layer
 {
 private:
 	Texture* m_Background;
+	int m_BackgroundX = 0.0f;
 
 	// Tilemap
 	SpriteSheet* m_WorldSheet;

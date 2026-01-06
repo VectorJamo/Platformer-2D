@@ -50,7 +50,7 @@ private:
 	
 	// Player Effects
 	bool m_IsInvincible = false;
-	float m_InvincibilityTime = 2.0f; // 2seconds
+	float m_InvincibilityTime = 2.0f; // 2 seconds
 	float m_InvincibleTimePassed = 0.0f;
 
 public:

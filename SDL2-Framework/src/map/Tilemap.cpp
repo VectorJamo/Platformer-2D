@@ -60,12 +60,17 @@ void Tilemap::RenderFromSprite(SDL_Renderer* renderer)
 		{
 			int x = j * MapConstants::TileWidth;
 			int y = i * MapConstants::TileHeight;
+			int screenX = x - Camera::CamTopLeftX;
+			int screenY = y - Camera::CamTopLeftY;
 
-			SDL_Rect destRect = { x - Camera::CamTopLeftX, y - Camera::CamTopLeftY, MapConstants::TileWidth, MapConstants::TileHeight };
-						
-			if (m_TileToSprite.count(m_Map[i][j]))
+			if (screenX + MapConstants::TileWidth >= 0 && screenX < WindowDimensions::Width && screenY + MapConstants::TileHeight >= 0 && screenY < WindowDimensions::Height)
 			{
-				m_TileToSprite[m_Map[i][j]]->Render(renderer, &destRect);
+				SDL_Rect destRect = { screenX, screenY, MapConstants::TileWidth, MapConstants::TileHeight };
+						
+				if (m_TileToSprite.count(m_Map[i][j]))
+				{
+					m_TileToSprite[m_Map[i][j]]->Render(renderer, &destRect);
+				}
 			}
 		}
 	}
